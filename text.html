@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ŠKG-Text</title>
+    <link rel="stylesheet" href="text.css"> <!-- Link to the external stylesheet -->
+</head>
+<body>
+
+    <header>
+        <h1>ŠKG-Text</h1>
+    </header>
+
+    <div class="toolbar">
+        <button onclick="boldText()">Bold</button>
+        <button onclick="italicText()">Italic</button>
+        <button onclick="underlineText()">Underline</button>
+    </div>
+
+    <div id="editor" contenteditable="true">
+        <!-- No need for placeholder text here; it's handled by the CSS -->
+    </div>
+
+    <div class="file-options">
+        <button onclick="saveFile()">Save File</button>
+        <button onclick="loadFile()">Load File</button>
+    </div>
+
+    <input type="file" id="fileInput" style="display:none" onchange="handleFileSelect(event)">
+
+    <script>
+        // Bold Text
+        function boldText() {
+            document.execCommand('bold');
+        }
+
+        // Italic Text
+        function italicText() {
+            document.execCommand('italic');
+        }
+
+        // Underline Text
+        function underlineText() {
+            document.execCommand('underline');
+        }
+
+        // Save File
+        function saveFile() {
+            const text = document.getElementById('editor').innerText;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'document.txt';
+            link.click();
+        }
+
+        // Load File
+        function loadFile() {
+            document.getElementById('fileInput').click();
+        }
+
+        // Handle File Select
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                document.getElementById('editor').innerText = e.target.result;
+            };
+
+            reader.readAsText(file);
+        }
+    </script>
+
+</body>
+</html>
