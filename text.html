@@ -18,8 +18,8 @@
         <button onclick="underlineText()">Underline</button>
     </div>
 
-    <div id="editor" contenteditable="true">
-        <!-- No need for placeholder text here; it's handled by the CSS -->
+    <div id="editor" contenteditable="true" oninput="checkPlaceholder()">
+        <!-- Placeholder text will be managed by JavaScript -->
     </div>
 
     <div class="file-options">
@@ -70,6 +70,18 @@
             };
 
             reader.readAsText(file);
+        }
+
+        // Check for Placeholder Text and Remove It When User Starts Typing
+        function checkPlaceholder() {
+            const editor = document.getElementById('editor');
+            const placeholder = "Type your text here...";
+
+            if (editor.innerText.trim() !== "" && editor.innerText !== placeholder) {
+                editor.classList.add("has-content");
+            } else {
+                editor.classList.remove("has-content");
+            }
         }
     </script>
 

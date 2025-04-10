@@ -14,19 +14,19 @@ header {
 
 #editor {
     width: 97.8%;
-    min-height: 200px; /* Set minimum height */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Increased padding for a more spacious feel */
+    min-height: 200px;
+    border-radius: 10px;
+    padding: 20px;
     font-family: Arial, sans-serif;
     font-size: 16px;
     background-color: white;
-    resize: none; /* Disable manual resizing */
-    overflow-y: auto; /* Allow scrolling if content overflows */
+    resize: none;
+    overflow-y: auto;
     position: relative;
     color: black;
-    border: 1px solid #ccc; /* Subtle border */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    transition: all 0.3s ease; /* Smooth transition for focus effect */
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 #editor::before {
@@ -37,20 +37,17 @@ header {
     color: #aaa;
     pointer-events: none;
     font-size: 16px;
+    transition: opacity 0.3s ease;
 }
 
-#editor:empty::before {
-    display: block;
-}
-
-#editor:focus::before {
-    content: "";
+#editor.has-content::before {
+    opacity: 0; /* Fade out placeholder text when there is content */
 }
 
 /* Focus effect */
 #editor:focus {
-    border-color: #007bff; /* Change border color on focus */
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6); /* Highlight the box on focus */
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
 }
 
 .toolbar {
@@ -69,8 +66,8 @@ button {
     padding: 10px 15px;
     cursor: pointer;
     font-size: 14px;
-    border-radius: 5px; /* Rounded corners for buttons */
-    transition: background-color 0.3s ease; /* Smooth hover transition */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
