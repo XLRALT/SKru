@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <title>CMD Emulator</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      background: black;
+      color: white;
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+    }
+    #output {
+      white-space: pre-wrap;
+    }
+    #input-line {
+      display: inline;
+    }
+    input {
+      background: black;
+      color: pink;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+      width: 90%;
+    }
+  </style>
+</head>
+<body>
+  <div id="output">\\ Command Prompt Emulátor (verze 1.0) <br>\\ Žačni s příkazem "help"<br> </div>
+  <div><span id="prompt">root@skolaklic/C/ </span><span id="input-line"><input type="text" id="cmd" autofocus /></span></div>
+
+  <script>
+    const output = document.getElementById('output');
+    const input = document.getElementById('cmd');
+    const prompt = document.getElementById('prompt');
+    let currentPath = "C/";
+
+    const files = {
+      "C/": ["TajnostiSkolyKlic", "http-server"],
+      "C/TajnostiSkolyKlic": ["kdyz_se_zavrou_dvere_kabinetu.mp4", "znamky.txt"],
+      "C/http-server": ["Host: GITHUB.COM", "Proxy: CloudFlare", "Proxy-country: US", "Open-ports: 80,443"]
+    };
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const command = input.value.trim();
+        const fullCommand = `${prompt.textContent}${command}`;
+        output.innerHTML += `\n${fullCommand}`;
+        processCommand(command);
+        input.value = '';
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+    });
+
+    function processCommand(cmdRaw) {
+      const cmd = cmdRaw.toLowerCase();
+
+      if (cmd === 'help') {
+        print("\nSyntax příkazů:\ndir - ukáže soubory | cd [složka] - otevře složku | echo [text] | cls - vyčistí okno | exit\n \n");
+      } else if (cmd === 'cls') {
+        output.innerHTML = '';
+      } else if (cmd === 'dir') {
+        const list = files[currentPath] || [];
+        print(`\nVýpis adresáře ${currentPath}\n`);
+        list.forEach(f => print(f));
+        print(" "); // prázdný řádek
+      } else if (cmd.startsWith('cd')) {
+        const parts = cmdRaw.split(' ');
+        if (parts.length < 2) {
+          print("Zadej název složky.");
+        } else {
+          const folder = parts[1];
+          const newPath = currentPath.endsWith('/') ? currentPath + folder : currentPath + "/" + folder;
+          if (files[newPath]) {
+            currentPath = newPath;
+            prompt.textContent = `root@skolaklic/${currentPath}/ `;
+          } else {
+            print("Složka nebyla nalezena.");
+          }
+        }
+      } else if (cmd.startsWith('echo')) {
+        print(cmdRaw.slice(5));
+      } else if (cmd === 'exit') {
+        print("Ukončuji simulaci...");
+        input.disabled = true;
+      } else if (cmd === '') {
+        print('');
+      } else {
+        print(`'${cmdRaw}' není rozpoznán jako vnitřní nebo vnější příkaz.`);
+      }
+    }
+
+    function print(text) {
+      output.innerHTML += '\n' + text;
+    }
+  </script>
+</body>
+</html>
