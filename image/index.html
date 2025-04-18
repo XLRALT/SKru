@@ -5,8 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ŠK Photo Editor</title>
     <link rel="stylesheet" href="image.css">
+    <style>
+        /* Menu styles */
+        .menu-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 10px;
+            display: none;
+            z-index: 999;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 6px 12px;
+            text-decoration: none;
+            color: #333;
+            font-family: sans-serif;
+        }
+
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Menu Button & Dropdown -->
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="dropdown" id="menu">
+        <a href="https://skolaklic.space/index.html">Home Page</a>
+        <a href="https://skolaklic.space/cmd/index.html">CMD Emulator</a>
+        <a href="https://skolaklic.space/image/index.html">Image Editor</a>
+        <a href="https://skolaklic.space/text/index.html">Text Editor</a>
+    </div>
+
     <header>
         <h1>ŠK Photo Editor</h1>
     </header>
@@ -15,7 +63,7 @@
     <div class="tools-bar">
         <input type="file" id="imageUpload" accept="image/*">
         <button id="pencilButton">Pencil Tool</button>
-        <button id="resizeButton">Resize</button> <!-- Resize button -->
+        <button id="resizeButton">Resize</button>
         <button id="downloadButton">Download</button>
         <select id="fileTypeSelect">
             <option value="image/png">PNG</option>
@@ -23,12 +71,12 @@
         </select>
     </div>
 
-    <!-- Canvas Fills Rest -->
+    <!-- Canvas Area -->
     <div class="canvas-wrapper">
         <canvas id="imagePreview" width="1920" height="1080"></canvas>
     </div>
 
-    <!-- Resize Input Popup -->
+    <!-- Resize Popup -->
     <div id="resizePopup" class="resize-popup">
         <div class="popup-content">
             <label for="newWidth">Width:</label>
@@ -39,6 +87,22 @@
             <button id="cancelButton">Cancel</button>
         </div>
     </div>
+
+    <script>
+        // MENU toggle
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('menu');
+            const button = document.querySelector('.menu-btn');
+            if (!menu.contains(event.target) && !button.contains(event.target)) {
+                menu.style.display = 'none';
+            }
+        });
+    </script>
 
     <script src="image.js"></script>
 </body>

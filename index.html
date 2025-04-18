@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ŠK Space</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         html, body {
             margin: 0;
@@ -18,18 +19,58 @@
             color: white;
             padding: 10px;
             text-align: center;
+            position: relative;
         }
 
         header h2 {
             margin: 0;
         }
 
+        /* Menu button */
+        .menu-btn {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Dropdown menu */
+        .dropdown {
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            background-color: white;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            padding: 10px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 8px 12px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
         main {
-            height: 90%; /* Adjusted for header height */
+            height: 90%;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center items vertically */
-            justify-content: center; /* Center items horizontally */
+            align-items: center;
+            justify-content: center;
         }
 
         h1 {
@@ -39,18 +80,41 @@
         iframe {
             border: 1px dashed #999;
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-            width: 90%; /* Set the iframe width to 90% of the viewport */
-            height: 100%; /* Set height to 80% of the main container, or adjust as needed */
+            width: 90%;
+            height: calc(100% - 50px);
         }
     </style>
 </head>
 <body>
     <header>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
         <h2>ŠK Space</h2>
+        <div class="dropdown" id="menu">
+            <a href="https://skolaklic.space/index.html">Home Page</a>
+            <a href="https://skolaklic.space/cmd/index.html">CMD Emulator</a>
+            <a href="https://skolaklic.space/image/index.html">Image Editor</a>
+            <a href="https://skolaklic.space/text/index.html">Text Editor</a>
+        </div>
     </header>
     <main>
         <h1>News</h1>
         <iframe src="https://www.blesk.cz/" title="Blesk.cz"></iframe>
     </main>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Optional: click outside to close
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('menu');
+            const button = document.querySelector('.menu-btn');
+            if (!menu.contains(event.target) && !button.contains(event.target)) {
+                menu.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

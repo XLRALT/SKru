@@ -5,8 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ŠK Text</title>
     <link rel="stylesheet" href="text.css"> <!-- Link to the external stylesheet -->
+    <style>
+        /* Menu styles */
+        .menu-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 10px;
+            display: none;
+            z-index: 999;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 6px 12px;
+            text-decoration: none;
+            color: #333;
+            font-family: sans-serif;
+        }
+
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Menu Button & Dropdown -->
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="dropdown" id="menu">
+        <a href="https://skolaklic.space/index.html">Home Page</a>
+        <a href="https://skolaklic.space/cmd/index.html">CMD Emulator</a>
+        <a href="https://skolaklic.space/image/index.html">Image Editor</a>
+        <a href="https://skolaklic.space/text/index.html">Text Editor</a>
+    </div>
 
     <header>
         <h1>ŠK Text</h1>
@@ -30,22 +77,33 @@
     <input type="file" id="fileInput" style="display:none" onchange="handleFileSelect(event)">
 
     <script>
-        // Bold Text
+        // MENU toggle
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('menu');
+            const button = document.querySelector('.menu-btn');
+            if (!menu.contains(event.target) && !button.contains(event.target)) {
+                menu.style.display = 'none';
+            }
+        });
+
+        // Text formatting functions
         function boldText() {
             document.execCommand('bold');
         }
 
-        // Italic Text
         function italicText() {
             document.execCommand('italic');
         }
 
-        // Underline Text
         function underlineText() {
             document.execCommand('underline');
         }
 
-        // Save File
         function saveFile() {
             const text = document.getElementById('editor').innerText;
             const blob = new Blob([text], { type: 'text/plain' });
@@ -55,12 +113,10 @@
             link.click();
         }
 
-        // Load File
         function loadFile() {
             document.getElementById('fileInput').click();
         }
 
-        // Handle File Select
         function handleFileSelect(event) {
             const file = event.target.files[0];
             const reader = new FileReader();
@@ -72,7 +128,6 @@
             reader.readAsText(file);
         }
 
-        // Check for Placeholder Text and Remove It When User Starts Typing
         function checkPlaceholder() {
             const editor = document.getElementById('editor');
             const placeholder = "Type your text here...";
@@ -84,6 +139,5 @@
             }
         }
     </script>
-
 </body>
 </html>
