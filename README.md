@@ -5,7 +5,7 @@
 
 [/cmd](https://xlralt.github.io/SKru/cmd) (emulátor příkazového řádku)
 
-## 🆕 DOKUMENTACE/UPDATES
+## 🆕 AKTUALIZACE
 
 ```bash
 4/16/2025 - Přidání složek na různé tools, update README, přidání cmd
