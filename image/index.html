@@ -20,7 +20,7 @@
 
         .dropdown {
             position: absolute;
-            top: 50px;
+            top: 50px; /* Adjusted to 50px for proper placement */
             left: 10px;
             background-color: #f0f0f0;
             border: 1px solid #ccc;
@@ -29,6 +29,7 @@
             display: none;
             z-index: 999;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s ease; /* Smooth transition for dropdown visibility */
         }
 
         .dropdown a {
@@ -47,7 +48,7 @@
 <body>
 
     <!-- Menu Button & Dropdown -->
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <button class="menu-btn" onclick="toggleMenu(event)">☰</button>
     <div class="dropdown" id="menu">
         <a href="https://skolaklic.space/">Home Page</a>
         <a href="https://skolaklic.space/cmd/">CMD Emulator</a>
@@ -89,9 +90,21 @@
     </div>
 
     <script>
-        // MENU toggle
-        function toggleMenu() {
+        // MENU toggle with cursor offset fix
+        function toggleMenu(event) {
             const menu = document.getElementById('menu');
+            const button = event.target;
+
+            // Calculate position of button for better dropdown placement
+            const buttonRect = button.getBoundingClientRect();
+            const menuWidth = menu.offsetWidth;
+            const menuHeight = menu.offsetHeight;
+
+            // Update menu position based on button's position
+            menu.style.left = `${buttonRect.left}px`;
+            menu.style.top = `${buttonRect.bottom + window.scrollY}px`; // Adjusted for better vertical placement
+
+            // Toggle dropdown visibility
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         }
 
