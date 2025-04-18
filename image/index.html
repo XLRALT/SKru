@@ -1,53 +1,45 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ŠK Photo Editor</title>
-    <link rel="stylesheet" href="image.css"> <!-- Link to external image.css -->
+    <link rel="stylesheet" href="image.css">
 </head>
 <body>
-
     <header>
         <h1>ŠK Photo Editor</h1>
     </header>
 
-    <div class="editor-container">
-        <!-- Image Upload -->
+    <!-- Tools Bar -->
+    <div class="tools-bar">
         <input type="file" id="imageUpload" accept="image/*">
-        
-        <!-- Image Controls -->
-        <div class="controls">
-            <label for="resizeWidth">Width: </label>
-            <input type="number" id="resizeWidth" placeholder="Width" disabled>
-            <label for="resizeHeight">Height: </label>
-            <input type="number" id="resizeHeight" placeholder="Height" disabled>
+        <button id="pencilButton">Pencil Tool</button>
+        <button id="resizeButton">Resize</button> <!-- Resize button -->
+        <button id="downloadButton">Download</button>
+        <select id="fileTypeSelect">
+            <option value="image/png">PNG</option>
+            <option value="image/jpeg">JPEG</option>
+        </select>
+    </div>
 
-            <br>
+    <!-- Canvas Fills Rest -->
+    <div class="canvas-wrapper">
+        <canvas id="imagePreview" width="1920" height="1080"></canvas>
+    </div>
 
-            <label for="rotate">Rotate: </label>
-            <input type="range" id="rotate" min="0" max="360" value="0" disabled>
-
-            <br>
-            <label for="zoom">Zoom: </label>
-            <input type="range" id="zoom" min="1" max="3" step="0.1" value="1" disabled>
-
-            <br>
-
-            <button id="downloadButton" disabled>Download Edited Image</button>
-        </div>
-
-        <!-- Image Preview -->
-        <div class="image-container">
-            <canvas id="imagePreview" width="1920" height="1080"></canvas>
-        </div>
-
-        <div class="tools">
-            <button id="pencilButton">Pencil Tool</button>
+    <!-- Resize Input Popup -->
+    <div id="resizePopup" class="resize-popup">
+        <div class="popup-content">
+            <label for="newWidth">Width:</label>
+            <input type="number" id="newWidth" placeholder="Width">
+            <label for="newHeight">Height:</label>
+            <input type="number" id="newHeight" placeholder="Height">
+            <button id="okButton">OK</button>
+            <button id="cancelButton">Cancel</button>
         </div>
     </div>
 
-    <script src="image.js"></script> <!-- Link to external image.js -->
+    <script src="image.js"></script>
 </body>
 </html>

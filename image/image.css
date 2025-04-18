@@ -1,8 +1,9 @@
-body {
-    font-family: Arial, sans-serif;
+html, body {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
 }
 
 header {
@@ -12,40 +13,44 @@ header {
     text-align: center;
 }
 
-.editor-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 80%;
-    max-width: 600px;
-}
-
-.controls {
-    margin-top: 20px;
+.tools-bar {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
-input[type="number"],
-input[type="range"] {
-    margin: 5px;
+.tools-bar input[type="number"],
+.tools-bar input[type="range"],
+.tools-bar button,
+.tools-bar input[type="file"] {
     padding: 5px;
-    width: 80px;
+    font-size: 14px;
+    max-width: 120px;
+}
+
+#pencilButton {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#pencilButton:hover {
+    background-color: #e5533d;
 }
 
 button {
-    padding: 10px 20px;
-    margin-top: 10px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
-    font-size: 14px;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
 }
 
 button:disabled {
@@ -53,34 +58,74 @@ button:disabled {
     cursor: not-allowed;
 }
 
-button:hover {
+button:hover:not(:disabled) {
     background-color: #45a049;
 }
 
-.image-container {
-    margin-top: 20px;
+.canvas-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    height: calc(100vh - 120px); /* Fills remaining space */
 }
 
 canvas {
-    border: 1px solid #ccc;
-    display: block;
-    margin: 0 auto;
+    border: 1px dashed #999;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+    max-width: 95%;
+    max-height: 85%;
+    object-fit: contain;
 }
 
-.tools {
-    margin-top: 10px;
+/* Styles for the resize popup */
+.resize-popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
 }
 
-#pencilButton {
-    padding: 10px 20px;
-    background-color: #ff6347;
+.resize-popup .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.resize-popup input {
+    padding: 5px;
+    font-size: 14px;
+    width: 200px;
+}
+
+.resize-popup button {
+    padding: 8px;
+    background-color: #4CAF50;
     color: white;
     border: none;
-    cursor: pointer;
-    font-size: 14px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
-#pencilButton:hover {
-    background-color: #e5533d;
+.resize-popup button:hover {
+    background-color: #45a049;
+}
+
+.resize-popup #cancelButton {
+    background-color: #f44336;
+}
+
+.resize-popup #cancelButton:hover {
+    background-color: #e53935;
 }
