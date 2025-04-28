@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>News Portal</h1>
+    </header>
+
+    <main>
+        <section id="editor">
+            <h2>Create News Article</h2>
+            <input type="text" id="title" placeholder="News Title" required>
+            <textarea id="content" placeholder="Write your news content here..." required></textarea>
+            <input type="file" id="imageUpload" accept="image/*">
+            <button id="submitBtn">Publish</button>
+        </section>
+
+        <section id="newsFeed">
+            <h2>Latest News</h2>
+            <div id="articles"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
