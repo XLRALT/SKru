@@ -1,3 +1,5 @@
+const API_URL = 'https://your-render-app.onrender.com'; // Replace after deploying
+
 const submitBtn = document.getElementById('submitBtn');
 const articlesDiv = document.getElementById('articles');
 
@@ -14,23 +16,40 @@ submitBtn.addEventListener('click', async () => {
     let imageUrl = '';
 
     if (imageFile) {
-        // Simulate uploading image to external server
         imageUrl = await uploadImage(imageFile);
     }
 
-    const article = {
-        title,
-        content,
-        imageUrl
-    };
+    const article = { title, content, imageUrl };
 
-    displayArticle(article);
-
-    // Optionally send article to server
-    // await uploadArticle(article);
+    await uploadArticle(article);
 
     clearEditor();
+    await loadArticles();
 });
+
+async function uploadArticle(article) {
+    const response = await fetch(`${API_URL}/articles`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(article)
+    });
+    const data = await response.json();
+    console.log('Uploaded article:', data);
+}
+
+function clearEditor() {
+    document.getElementById('title').value = '';
+    document.getElementById('content').value = '';
+    document.getElementById('imageUpload').value = '';
+}
+
+// Load articles when page loads
+async function loadArticles() {
+    const response = await fetch(`${API_URL}/articles`);
+    const articles = await response.json();
+    articlesDiv.innerHTML = '';
+    articles.forEach(displayArticle);
+}
 
 function displayArticle(article) {
     const articleEl = document.createElement('div');
@@ -40,33 +59,18 @@ function displayArticle(article) {
         <p>${article.content}</p>
         ${article.imageUrl ? `<img src="${article.imageUrl}" alt="Article Image">` : ''}
     `;
-    articlesDiv.prepend(articleEl); // newest on top
+    articlesDiv.appendChild(articleEl);
 }
 
-function clearEditor() {
-    document.getElementById('title').value = '';
-    document.getElementById('content').value = '';
-    document.getElementById('imageUpload').value = '';
-}
-
-// Fake image upload function
 async function uploadImage(file) {
     return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onload = function(e) {
-            resolve(e.target.result); // base64 data URL (simulate server URL)
+            resolve(e.target.result); // Base64 (simulate image upload)
         }
         reader.readAsDataURL(file);
     });
 }
 
-// Example real upload function (you would connect to real server API)
-async function uploadArticle(article) {
-    const response = await fetch('https://api.render.com/deploy/srv-d07rstadbo4c73bredjg?key=gJDr2xUKdtw', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(article)
-    });
-    const data = await response.json();
-    console.log('Uploaded article:', data);
-}
+// Initial load
+loadArticles();
