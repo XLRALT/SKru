@@ -59,14 +59,3 @@ async function uploadImage(file) {
         reader.readAsDataURL(file);
     });
 }
-
-// Example real upload function (you would connect to real server API)
-async function uploadArticle(article) {
-    const response = await fetch('https://api.render.com/deploy/srv-d07rstadbo4c73bredjg?key=gJDr2xUKdtw', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(article)
-    });
-    const data = await response.json();
-    console.log('Uploaded article:', data);
-}
