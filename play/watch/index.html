@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ŠKS Play</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Menu Button & Dropdown -->
+    <button class="menu-btn" onclick="toggleMenu(event)">☰</button>
+    <div class="dropdown" id="menu">
+        <a href="https://skolaklic.space/">Home Page</a>
+        <a href="https://skolaklic.space/cmd/">CMD Emulator</a>
+        <a href="https://skolaklic.space/image/">Image Editor</a>
+        <a href="https://skolaklic.space/news/">News</a>
+        <a href="https://skolaklic.space/play/">Play</a>
+        <a href="https://skolaklic.space/text/">Text Editor</a>
+    </div>
+  <header>
+    <h1>ŠKS Play</h1>
+  </header>
+
+  <main>
+    <video id="videoPlayer" width="800" controls>
+      <p>Your browser does not support HTML5 video.</p>
+    </video>
+    <div id="videoDetails">
+      <h2 id="videoTitle">Loading...</h2>
+      <p id="videoDescription">Please wait while the video loads.</p>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
